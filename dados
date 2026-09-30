@@ -1,0 +1,81 @@
+package dados;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Atendimento {
+
+    private String dataEntrada;
+    private String dataSaida;
+    private boolean finalizado;
+    private float valor;
+
+    private Veterinario veterinario;
+    private List<Medicamento> medicamentos;
+
+    public Atendimento(String dataEntrada) {
+        this.dataEntrada = dataEntrada;
+        this.dataSaida = "";
+        this.finalizado = false;
+        this.valor = 0;
+
+        this.medicamentos = new ArrayList<>();
+    }
+
+    public void adicionarVeterinario(Veterinario veterinario) {
+        this.veterinario = veterinario;
+    }
+
+    public void adicionarMedicamento(Medicamento medicamento) {
+        medicamentos.add(medicamento);
+    }
+
+    public float calcularValor() {
+        float total = 0;
+
+        for (Medicamento medicamento : medicamentos) {
+            total += medicamento.getPreco();
+        }
+
+        valor = total;
+        return total;
+    }
+
+    public void finalizar(String dataSaida) {
+        this.dataSaida = dataSaida;
+        this.finalizado = true;
+        calcularValor();
+    }
+
+    public boolean isFinalizado() {
+        return finalizado;
+    }
+
+    public String getDataEntrada() {
+        return dataEntrada;
+    }
+
+    public String getDataSaida() {
+        return dataSaida;
+    }
+
+    public float getValor() {
+        return valor;
+    }
+
+    public Veterinario getVeterinario() {
+        return veterinario;
+    }
+
+    public List<Medicamento> getMedicamentos() {
+        return medicamentos;
+    }
+
+    @Override
+    public String toString() {
+        return "Entrada: " + dataEntrada +
+               ", Saida: " + dataSaida +
+               ", Finalizado: " + finalizado +
+               ", Valor: " + calcularValor();
+    }
+}
